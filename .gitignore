@@ -1,0 +1,7 @@
+build/
+build
+.idea/
+.idea/vcs.xml
+CMakeLists.txt.*
+cmake-*
+cmake-build-debug/
