@@ -5,8 +5,8 @@
 using namespace algorithm::graph;
 
 TEST(FloydWarshall, DistancesAreCorrect) {
-    const int capacity = 9;
-    Graph graph(capacity);
+    const int kCapacity = 9;
+    Graph graph(kCapacity);
 
     // Build a graph.
     graph.addUndirectedEdge(0, 1, 4);
@@ -40,8 +40,8 @@ TEST(FloydWarshall, DistancesAreCorrect) {
 }
 
 TEST(FloydWarshall, InifiniteDistanceForNodeWithoutPath) {
-    const int capacity = 2;
-    Graph graph(capacity);
+    const int kCapacity = 2;
+    Graph graph(kCapacity);
 
     // Build a graph.
     graph.addUndirectedEdge(0, 0, 10);

@@ -5,8 +5,8 @@
 using namespace algorithm::graph;
 
 TEST(Bfs, FullyConnectedGraph) {
-    const int capacity = 3;
-    Graph graph(capacity);
+    const int kCapacity = 3;
+    Graph graph(kCapacity);
 
     // Create undirected graph as follows:
     // 0 - 2 - 1

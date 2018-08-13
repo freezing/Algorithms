@@ -5,8 +5,8 @@
 using namespace algorithm::graph;
 
 TEST(StronglyConnectedComponents, ManySccs) {
-    const int capacity = 15;
-    Graph graph(capacity);
+    const int kCapacity = 15;
+    Graph graph(kCapacity);
 
     // Create a graph with the following SCCs:
     // 0 -> 1 -> 2 -> 0 (SCC)
