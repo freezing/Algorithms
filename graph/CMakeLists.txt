@@ -6,12 +6,12 @@ set(GRAPH_LIB_SRC
         src/tarjan.cpp)
 
 set(GRAPH_LIB_TEST_SRC
-        src/bfs_test.cpp
-        src/dijkstra_test.cpp
-        src/floyd_warshall_test.cpp
-        src/shortest_paths_integration_test.cpp
-        src/tarjan_test.cpp
-        src/test.cpp)
+        test/bfs_test.cpp
+        test/dijkstra_test.cpp
+        test/floyd_warshall_test.cpp
+        test/shortest_paths_integration_test.cpp
+        test/tarjan_test.cpp
+        test/test.cpp)
 
 set(GRAPH_LIB_BENCHMARK_SRC
         benchmark/bfs_benchmark.cpp)
@@ -40,8 +40,5 @@ if (GRAPH_BUILD_STATIC)
         target_link_libraries(bfs_benchmark graph_static benchmark)
         set_property(TARGET bfs_benchmark PROPERTY CXX_STANDARD 11)
         set_target_properties(bfs_benchmark PROPERTIES benchmark_format json benchmark_out benchmarks/bfs.json)
-        # TODO: This should probably not be part of the test suite. Instead we should manually (via CI script) run
-        # benchmarks and report them.
-#        add_test(bfs_benchmark bfs_benchmark)
     endif()
 endif()
