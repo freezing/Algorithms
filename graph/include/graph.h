@@ -1,7 +1,3 @@
-//
-// Created by Nikola Stojiljkovic on 8/12/18.
-//
-
 #ifndef ALGORITHMS_GRAPH_H
 #define ALGORITHMS_GRAPH_H
 
@@ -79,12 +75,14 @@ public:
 
 
     // Returns the total capacity of the graph.
+    //
     // Time complexity: O(1).
     uint32_t capacity() const {
         return _capacity;
     }
 
     // Adds node to the graph. This method is noop if node already exists.
+    //
     // Time complexity: O(1).
     void addNode(NodeIndex u) {
         _nodes.insert(u);
@@ -92,17 +90,21 @@ public:
 
     // Adds a directed weighted edge from node u to node v with weight w.
     // It adds new edge even if the edge from u to v already exists.
-    // It is caller's responsibility to ensure that both nodes already exist.
+    // Adds nodes if they do not already exist.
+    //
     // Time complexity: O(1).
     void addEdge(NodeIndex u, NodeIndex v, Weight w) {
         assert(_nodes.find(u) != _nodes.end());
         assert(_nodes.find(v) != _nodes.end());
         _edges[u].emplace_back(u, v, w);
+        addNode(u);
+        addNode(v);
     }
 
     // Adds a directed unweighted edge from node u to node v.
     // It adds new edge even if the edge from u to v already exists.
-    // It is caller's responsibility to ensure that both nodes already exist.
+    // Adds nodes if they do not already exist.
+    //
     // Time complexity: O(1).
     void addEdge(NodeIndex u, NodeIndex v) {
         addEdge(u, v, kUnweighted);
@@ -127,12 +129,14 @@ public:
     }
 
     // Returns a const reference to the list of edges from the node with index u.
+    //
     // Time complexity: O(1).
     const std::vector<Edge>& edges(NodeIndex u) const {
         return _edges[u];
     }
 
     // Returns a const reference to the list of nodes in the graph.
+    //
     // Time complexity: O(1).
     const std::set<NodeIndex>& nodes() const {
         return _nodes;
@@ -177,6 +181,17 @@ std::vector<StronglyConnectedComponent> Tarjan(const Graph&);
 // Time complexity: O(V + E + lg (V + E)).
 // Memory complexity: O(V).
 std::vector<Weight> Dijkstra(const Graph&, NodeIndex);
+
+// Implements Floyd Warshall algorithm for finding the shortest paths for all pairs in a given weighted directed graph.
+// https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+//
+// Returns a matrix D with value d[u][v] being equal to the length of the shortest path from node u to node v.
+//
+// V - graph capacity.
+// E - number of edges.
+// Time complexity: O(V^3 + E).
+// Memory complexity: O(V^2).
+std::vector<std::vector<Weight>> FloydWarshall(const Graph&);
 
 }
 }

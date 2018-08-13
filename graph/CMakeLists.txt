@@ -2,11 +2,13 @@ set(GRAPH_LIB_SRC
         include/graph.h
         src/bfs.cpp
         src/dijsktra.cpp
+        src/floyd_warshall.cpp
         src/tarjan.cpp)
 
 set(GRAPH_LIB_TEST_SRC
         src/bfs_test.cpp
         src/dijkstra_test.cpp
+        src/floyd_warshall_test.cpp
         src/tarjan_test.cpp
         src/test.cpp)
 
