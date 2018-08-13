@@ -5,7 +5,7 @@
 
 using namespace algorithm::graph;
 
-TEST(ShortestPathIntegrationTest, DijkstraAndFloydWarshallMediumSize) {
+TEST(ShortestPathsIntegrationTest, DijkstraAndFloydWarshallMediumSize) {
     const int kSeed = 1439714;
     const uint32_t kCapacity = 100;
     const int kNumEdges = 1000;
