@@ -15,10 +15,16 @@ namespace graph {
 using NodeIndex = uint32_t;
 using StronglyConnectedComponent = std::vector<NodeIndex>;
 using Weight = int32_t;
+using ErrorCode = int32_t;
 
 namespace {
     const Weight kUnweighted = 1;
     const Weight kInfinity = std::numeric_limits<Weight>::max();
+}
+
+namespace {
+    const ErrorCode kSuccess = 0;
+    const ErrorCode kGraphNotDag = 1;
 }
 
 struct Edge {
@@ -85,6 +91,7 @@ public:
     //
     // Time complexity: O(1).
     void addNode(NodeIndex u) {
+        assert(u < capacity);
         _nodes.insert(u);
     }
 
@@ -94,8 +101,6 @@ public:
     //
     // Time complexity: O(1).
     void addEdge(NodeIndex u, NodeIndex v, Weight w) {
-        assert(_nodes.find(u) != _nodes.end());
-        assert(_nodes.find(v) != _nodes.end());
         _edges[u].emplace_back(u, v, w);
         addNode(u);
         addNode(v);
@@ -156,7 +161,7 @@ public:
 // Memory complexity: O(V).
 void Bfs(const Graph&, NodeIndex, std::function<bool(NodeIndex)>);
 
-// Implements Tarjan's algorithm for finding strongly connected components:
+// Tarjan's algorithm for finding strongly connected components:
 // https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
 //
 // Returns a vector of StronglyConnectedComponents, where each SCC is a vector of disjunctive node indexes.
@@ -167,7 +172,7 @@ void Bfs(const Graph&, NodeIndex, std::function<bool(NodeIndex)>);
 // Memory complexity: O(V).
 std::vector<StronglyConnectedComponent> Tarjan(const Graph&);
 
-// Implements Dijkstra's algorithm for finding the shortest paths from the given node to all other nodes in the graph.
+// Dijkstra's algorithm for finding the shortest paths from the given node to all other nodes in the graph.
 // https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //
 // Returns a vector d of distances that represent shortest paths from the source node,
@@ -182,7 +187,7 @@ std::vector<StronglyConnectedComponent> Tarjan(const Graph&);
 // Memory complexity: O(V).
 std::vector<Weight> Dijkstra(const Graph&, NodeIndex);
 
-// Implements Floyd Warshall algorithm for finding the shortest paths for all pairs in a given weighted directed graph.
+// Floyd Warshall algorithm for finding the shortest paths for all pairs in a given weighted directed graph.
 // https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 //
 // Returns a matrix D with value d[u][v] being equal to the length of the shortest path from node u to node v.
@@ -192,6 +197,19 @@ std::vector<Weight> Dijkstra(const Graph&, NodeIndex);
 // Time complexity: O(V^3 + E).
 // Memory complexity: O(V^2).
 std::vector<std::vector<Weight>> FloydWarshall(const Graph&);
+
+// DFS based topological sorting algorithm:
+// https://en.wikipedia.org/wiki/Topological_sorting
+//
+// Returns a pair of result and error code, where result is vector of node indexes sorted in topological order.
+// Error code is kSuccess and result is populated if the graph is DAG.
+// Error code is kGraphNotDag if the graph is not DAG.
+//
+// V - graph capacity.
+// E - number of edges.
+// Time complexity: O(V + E).
+// Memory complexity: O(V).
+std::pair<std::vector<NodeIndex>, ErrorCode> TopologicalSort(const Graph&);
 
 }
 }

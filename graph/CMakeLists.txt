@@ -3,7 +3,8 @@ set(GRAPH_LIB_SRC
         src/bfs.cpp
         src/dijsktra.cpp
         src/floyd_warshall.cpp
-        src/tarjan.cpp)
+        src/tarjan.cpp
+        src/topological_sort.cpp)
 
 set(GRAPH_LIB_TEST_SRC
         test/bfs_test.cpp
@@ -11,6 +12,7 @@ set(GRAPH_LIB_TEST_SRC
         test/floyd_warshall_test.cpp
         test/shortest_paths_integration_test.cpp
         test/tarjan_test.cpp
+        test/topological_sort_test.cpp
         test/test.cpp)
 
 set(GRAPH_LIB_BENCHMARK_SRC
